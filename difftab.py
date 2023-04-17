@@ -1,6 +1,8 @@
-import numpy as np
-
-
+#================================================================================
+#Copyright (C) Xiao Hu  <xiao.hu.astro@gmail.com> 
+#2023.04
+#For reference: https://ui.adsabs.harvard.edu/abs/2023arXiv230405972H/abstract
+#================================================================================
 def Amtab(rholog,th):
   if th>1.95:
     th=1.95
@@ -9,10 +11,13 @@ def Amtab(rholog,th):
       th=1
     Amlog=(-2.04*th - 0.656)*rholog -1.768
   elif rholog>-2.5:
-    z1=[ 0.26429362,  2.308469,    7.81413499, 12.39250353, \
-  7.90442493, -0.52179895,-1.52831614]
-    pAm1=np.poly1d(z1)
-    uplim=pAm1(rholog)
+#    z1=[ 0.26429362,  2.308469,    7.81413499, 12.39250353, \
+#  7.90442493, -0.52179895,-1.52831614]
+#    pAm1=np.poly1d(z1)
+#    uplim=pAm1(rholog)
+    uplim= 0.26429362*rholog**6 + 2.308469*rholog**5 + 7.81413499*rholog**4+\
+    12.39250353*rholog**3 + 7.90442493*rholog**2 -0.52179895*rholog-1.52831614
+
     if rholog>-1.05:
       Amlog=(0.945454545454545*th - 1.70909090909091)*rholog +1.49272727272727*th - 2.29454545454545
       if th >0.8:
@@ -39,10 +44,12 @@ def Amtab(rholog,th):
     if Amlog>uplim:
       Amlog=uplim
   else:
-    z=[1.34528857e-01, 3.15915033e+00, 3.06754303e+01, 1.57055386e+02,\
- 4.45961390e+02, 6.64211300e+02, 4.04541785e+02]
-    pAm=np.poly1d(z)
-    Amlog=pAm(rholog)
+    #z=[1.34528857e-01, 3.15915033e+00, 3.06754303e+01, 1.57055386e+02,\
+ #4.45961390e+02, 6.64211300e+02, 4.04541785e+02]
+  #  pAm=np.poly1d(z)
+  #  Amlog=pAm(rholog)
+    Amlog=1.34528857e-01*rholog**6+3.15915033*rholog**5+3.06754303e+01*rholog**4+\
+  1.57055386e+02*rholog**3+4.45961390e+02*rholog**2+6.64211300e+02*rholog+4.04541785e+02
   return Amlog
 
 def etaOtab(rholog):
